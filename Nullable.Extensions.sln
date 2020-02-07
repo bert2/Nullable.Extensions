@@ -10,6 +10,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96302F3C-3701-4F1D-A7B2-A477E80BE36F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{734EA20A-B6E5-46AA-B7CD-3FB3A51B7DCF}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		build\build.cake = build\build.cake
+		build.ps1 = build.ps1
+		build\format-rel-notes.cake = build\format-rel-notes.cake
+		GitVersion.yml = GitVersion.yml
+		build\prompt.cake = build\prompt.cake
 	EndProjectSection
 EndProject
 Global
@@ -29,6 +42,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{734EA20A-B6E5-46AA-B7CD-3FB3A51B7DCF} = {96302F3C-3701-4F1D-A7B2-A477E80BE36F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D7F832B-3091-4B8F-AB90-29D1C157E5D0}
