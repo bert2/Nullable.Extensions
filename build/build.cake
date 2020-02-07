@@ -7,9 +7,12 @@ var target = Argument("target", "Default");
 var config = Argument("configuration", "Release");
 var nugetKey = Argument<string>("nugetKey", null) ?? EnvironmentVariable("nuget_key");
 
+var pkgName = "Nullable.Extensions";
+var pkgDesc = "Nullable.Extensions is a set of extensions methods to help working with nullable types.";
+
 var rootDir = Directory("..");
 var srcDir = rootDir + Directory("src");
-var libDir = srcDir + Directory("Nullable.Extensions");
+var libDir = srcDir + Directory(pkgName);
 var pkgDir = libDir + Directory($"bin/{config}");
 
 var lastCommitMsg = EnvironmentVariable("APPVEYOR_REPO_COMMIT_MESSAGE") ?? GitLogTip(rootDir).MessageShort;
@@ -49,9 +52,9 @@ Task("Pack")
         msbuildSettings.Properties["PackageVersion"] = new[] { semVer.NuGetVersion };
         msbuildSettings.Properties["PackageReleaseNotes"] = new[] { relNotes };
         msbuildSettings.Properties["PackageDescription"] = new[] {
-$@"Nullable.Extensions is a set of extensions methods to help working with nullable types.
+$@"{pkgDesc}
 
-Documentation: https://github.com/bert2/Nullable.Extensions
+Documentation: https://github.com/bert2/{pkgName}
 
 Release notes: {relNotes}" };
 
@@ -83,7 +86,7 @@ Task("Release")
             nugetKey = Prompt("Enter nuget API key: ");
 
         DotNetCoreNuGetPush(
-            pkgDir + File($"FParsec.CSharp.{semVer.NuGetVersion}.nupkg"),
+            pkgDir + File($"{pkgName}.{semVer.NuGetVersion}.nupkg"),
             new DotNetCoreNuGetPushSettings {
                 Source = "nuget.org",
                 ApiKey = nugetKey
