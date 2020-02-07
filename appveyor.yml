@@ -6,7 +6,7 @@ environment:
   nugetKey:
     secure: DviconFZ6G3ZX9Q9XktXy0SRmOXmd//stfYVnzYvniBP/JBzZ6y2gjJjEZhALyk4
 build_script:
-- ps: build.ps1
+- ps: ./build
 test: off # tests are run by build_script
 deploy_script:
-- ps: build.ps1 -Target Release
+- ps: ./build -Target Release
