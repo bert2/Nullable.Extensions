@@ -10,4 +10,3 @@ Extensions methods to help working with nullable types.
 - write proper readme
 - add `Select()` and `SelectMany()` aliases
 - add async overloads
-- unit-test functor laws
