@@ -14,7 +14,7 @@ namespace UnitTests {
             [Fact] public void ReturnsBinderResult()
                 => "1234".Bind(GetFirstThreeLetters).ShouldBe("123");
 
-            private static string? GetFirstThreeLetters(string s) => s.Length >= 3 ? s.Substring(0, 3) : null;
+            private static string? GetFirstThreeLetters(string s) => s.Length >= 3 ? s[..3] : null;
         }
 
         public class Struct {
@@ -27,7 +27,7 @@ namespace UnitTests {
             [Fact] public void ReturnsBinderResult()
                 => ((double?)6).Bind(x => Divide(x, 3)).ShouldBe(2);
 
-            private double? Divide(double dividend, double divisor) => divisor == 0 ? (double?)null : dividend / divisor;
+            private static double? Divide(double dividend, double divisor) => divisor == 0 ? (double?)null : dividend / divisor;
         }
 
         public class Class2Struct {
@@ -40,7 +40,7 @@ namespace UnitTests {
             [Fact] public void ReturnsBinderResult()
                 => "123".Bind(Parse).ShouldBe(123);
 
-            private int? Parse(string s) => int.TryParse(s, out var i) ? i : (int?)null;
+            private static int? Parse(string s) => int.TryParse(s, out var i) ? i : (int?)null;
         }
 
         public class Struct2Class {
@@ -53,7 +53,7 @@ namespace UnitTests {
             [Fact] public void ReturnsBinderResult()
                 => ((int?)123).Bind(PrintPositive).ShouldBe("123");
 
-            private string? PrintPositive(int i) => i > 0 ? i.ToString() : null;
+            private static string? PrintPositive(int i) => i > 0 ? i.ToString() : null;
         }
     }
 }
