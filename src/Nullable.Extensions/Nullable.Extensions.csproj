@@ -5,23 +5,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>Nullable.Extensions</PackageId>
-    <PackageVersion>0.0.0</PackageVersion>
-    <Authors>Robert Hofmann</Authors>
-    <Copyright>Copyright © 2020</Copyright>
-    <PackageTags>nullable reference types extensions nrt nrts maybe monad map filter bind</PackageTags>
-    <Title>Nullable.Extensions</Title>
-    <Description>Nullable.Extensions is a set of extensions methods to help working with nullable types.</Description>
-    <PackageDescription>Nullable.Extensions is a set of extensions methods to help working with nullable types.</PackageDescription>
-    <RepositoryUrl>https://github.com/bert2/Nullable.Extensions.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <IncludeSource>true</IncludeSource>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReleaseNotes></PackageReleaseNotes>
-  </PropertyGroup>
-
 </Project>
