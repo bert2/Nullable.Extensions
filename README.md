@@ -87,6 +87,7 @@ Turns `T?`s that don't satisfy the `predicate` function into `null`s. If `T?` al
 
 ```csharp
 int? even = Nullable(13).Filter(n => n % 2 == 0);
+// `even` will be `null`
 ```
 
 ### `T2? T1?.Map<T1, T2>(Func<T1, T2> mapping)`
@@ -158,8 +159,8 @@ bool i_was_null = true;
 string? s = Nullable("hi").Tap(s => s_was_null = false);
 int? i = Nullable<int>().Tap(i => i_was_null = false);
 
-// s_was_null is now false
-// i_was_null is still true
+// `s_was_null` is now `false`
+// `i_was_null` is still `true`
 ```
 
 ## TODO
