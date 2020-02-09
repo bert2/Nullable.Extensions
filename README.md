@@ -43,7 +43,8 @@ int num = GetUserInput() // returns `string?`
 ```
 
 ```csharp
-int num = Nullable("123")
+int num = "123"
+    .AsNullable()
     .Bind(ParseInt)
     .Map(n => n - 1)
     ?? 0;
@@ -128,11 +129,11 @@ string? s = Nullable<string>();
 int? i = Nullable<int>();
 ```
 
-### `T2? T1?.Select<T1, T2>(Func<T1, T2> mapping)` (TBD)
+### `T2? T1?.Select<T1, T2>(Func<T1, T2> mapping)`
 
 Alias for `Map()`. Enables LINQ's query syntax for `T?`.
 
-### `T3? T1?.SelectMany<T1, T2, T3>(Func<T1, T2?> binder, Func<T1, T2, T3> mapping)` (TBD)
+### `T3? T1?.SelectMany<T1, T2, T3>(Func<T1, T2?> binder, Func<T1, T2, T3> mapping)`
 
 Alias for `Bind()`. Enables LINQ's query syntax for `T?`.
 
@@ -150,7 +151,7 @@ bool success = Nullable("abc").Switch(
 
 ### `T? T?.Tap<T>(Action<T> effect)`
 
-Executes a side-effect in case the `T?` has a value and then returns it unchanged. This works similar to tapping a phone line. Also useful during debugging, because it can be safely added to method chain for additional break points.
+Executes a side-effect in case the `T?` has a value and then returns it unchanged. This works similar to tapping a phone line. Also useful during debugging, because it can be safely added to method chains for additional break points.
 
 ```csharp
 bool s_was_null = true;
