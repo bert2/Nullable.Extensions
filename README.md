@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/4crxb1fq4hju2bne?svg=true)](https://ci.appveyor.com/project/bert2/nullable-extensions) [![NuGet](https://img.shields.io/nuget/v/Nullable.Extensions.svg)](https://www.nuget.org/packages/Nullable.Extensions)
 
-`Nullable.Extensions` is a set of C# extensions methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (`Nullable<T>`s or NVTs) and nullable reference types (NRTs).
+`Nullable.Extensions` is a set of C# extension methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (`Nullable<T>`s or NVTs) and nullable reference types (NRTs).
 
 ## Prerequisites
 
