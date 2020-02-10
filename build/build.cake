@@ -8,7 +8,7 @@ var config = Argument("configuration", "Release");
 var nugetKey = Argument<string>("nugetKey", null) ?? EnvironmentVariable("nuget_key");
 
 var pkgName = "Nullable.Extensions";
-var pkgDesc = "Nullable.Extensions is a set of extensions methods to help working with nullable types.";
+var pkgDesc = "A set of extensions methods to help working with nullable types by implementing the Maybe monad on top of `T?`.";
 var pkgTags = "nullable reference types; extensions; nrt; nrts; maybe monad; map; filter; bind";
 var pkgAuthors = "Robert Hofmann";
 var docUrl = "https://github.com/bert2/Nullable.Extensions";
