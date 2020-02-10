@@ -2,11 +2,11 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/4crxb1fq4hju2bne?svg=true)](https://ci.appveyor.com/project/bert2/nullable-extensions) [![NuGet](https://img.shields.io/nuget/v/Nullable.Extensions.svg)](https://www.nuget.org/packages/Nullable.Extensions)
 
-`Nullable.Extensions` is a small nuget package coming with a couple of extensions methods to help working with nullable types. This includes nullable value types (`Nullable<T>`s or NVTs) _and_ nullable reference types (NRTs).
+`Nullable.Extensions` is a set of C# extensions methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (`Nullable<T>`s or NVTs) and nullable reference types (NRTs).
 
 ## Prerequisites
 
-- enabled nullable reference types (`<Nullable>enable</Nullable>`/`#nullable enable`)
+- enabled nullable reference types (via `<Nullable>enable</Nullable>` in your `.csproj` file or `#nullable enable` in your `.cs` file)
 - C# 8.0, dotnet core 3.1
 - import the required namespaces:
 
@@ -131,11 +131,26 @@ int? i = Nullable<int>();
 
 ### `T2? T1?.Select<T1, T2>(Func<T1, T2> mapping)`
 
-Alias for `Map()`. Enables LINQ's query syntax for `T?`.
+Alias for `Map()`. Also enables LINQ's query syntax for `T?`.
+
+```csharp
+int? i = from s in Nullable("3")
+         select int.Parse(s);
+```
+
+### `T3? T1?.SelectMany<T1, T2, T3>(Func<T1, T2?> binder)`
+
+Alias for `Bind()`.
 
 ### `T3? T1?.SelectMany<T1, T2, T3>(Func<T1, T2?> binder, Func<T1, T2, T3> mapping)`
 
-Alias for `Bind()`. Enables LINQ's query syntax for `T?`.
+Enables LINQ's query syntax for `T?`.
+
+```csharp
+int? sum = from s in Nullable("2")
+           from i in Nullable(3)
+           select int.Parse(s) + i;
+```
 
 ### `T2 T1?.Switch<T1, T2>(Func<T1, T2> notNull, Func<T2> isNull)`
 
@@ -167,5 +182,4 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 ## TODO
 
 - add XML documentation
-- add `Select()` and `SelectMany()` aliases
 - add async overloads
