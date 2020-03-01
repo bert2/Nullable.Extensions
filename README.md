@@ -1,6 +1,6 @@
 # Nullable.Extensions
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4crxb1fq4hju2bne?svg=true)](https://ci.appveyor.com/project/bert2/nullable-extensions) [![NuGet](https://img.shields.io/nuget/v/Nullable.Extensions.svg)](https://www.nuget.org/packages/Nullable.Extensions)
+[![AppVeyor branch](https://img.shields.io/appveyor/build/bert2/nullable-extensions/master?logo=appveyor)](https://ci.appveyor.com/project/bert2/nullable-extensions/branch/master) [![tests](https://img.shields.io/appveyor/tests/bert2/nullable-extensions/master?compact_message&logo=appveyor)](https://ci.appveyor.com/project/bert2/nullable-extensions/branch/master) [![coverage](https://img.shields.io/codecov/c/github/bert2/Nullable.Extensions/master?logo=codecov)](https://codecov.io/gh/bert2/Nullable.Extensions) [![nuget package](https://img.shields.io/nuget/v/Nullable.Extensions.svg?logo=nuget)](https://www.nuget.org/packages/Nullable.Extensions) [![nuget downloads](https://img.shields.io/nuget/dt/Nullable.Extensions?color=blue&logo=nuget)](https://www.nuget.org/packages/Nullable.Extensions) ![last commit](https://img.shields.io/github/last-commit/bert2/Nullable.Extensions/master?logo=github)
 
 `Nullable.Extensions` is a set of C# extension methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (`Nullable<T>`s or NVTs) and nullable reference types (NRTs).
 
@@ -181,5 +181,7 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 
 ## TODO
 
-- add XML documentation
 - add async overloads
+- add helpers like `V? IDicionary<K,V>.TryGet(K)`, `int? ParseInt(string)`, `bool? ParseBool(string)` etc.
+- add XML documentation
+- generate API reference with mddox
