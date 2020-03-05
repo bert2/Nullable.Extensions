@@ -4,6 +4,8 @@
 
 `Nullable.Extensions` is a set of C# extension methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (`Nullable<T>`s or NVTs) and nullable reference types (NRTs).
 
+If your interested in the reasoning behind this library, I recommend that you read the chapter ["Make null explicit"](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7#make-null-explicit) from my guide [Giving Sisyphus a Hand: How to Improve OOP with Functional Principles](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7).
+
 ## Prerequisites
 
 - enabled nullable reference types (via `<Nullable>enable</Nullable>` in your `.csproj` file or `#nullable enable` in your `.cs` file)
@@ -115,6 +117,8 @@ string? s = Nullable("hi");
 int? i = Nullable(13);
 ```
 
+Make sure to place the `using static ...` _inside_ your own namespace. Otherwise you will have to specifiy `T` explicitly (e.g. `Nullable<int>(13)`).
+
 ### `T? Nullable<T>()`
 
 Creates a `null` of the specified type.
@@ -147,9 +151,12 @@ Alias for `Bind()`.
 Enables LINQ's query syntax for `T?`.
 
 ```csharp
+int? ParseInt(string s) => int.TryParse(s, out var i) ? (int?)i : null;
+
 int? sum = from s in Nullable("2")
-           from i in Nullable(3)
-           select int.Parse(s) + i;
+           from i1 in ParseInt(s)
+           from i2 in Nullable(3)
+           select i1 + i2;
 ```
 
 ### `T2 T1?.Switch<T1, T2>(Func<T1, T2> notNull, Func<T2> isNull)`
