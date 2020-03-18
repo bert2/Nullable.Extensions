@@ -1,7 +1,7 @@
 #tool GitVersion.CommandLine
 #tool Codecov
-#addin Cake.Git
 #addin Cake.Codecov
+#addin Cake.Git
 #load prompt.cake
 #load format-rel-notes.cake
 
@@ -9,18 +9,9 @@ var target = Argument("target", "Default");
 var config = Argument("configuration", "Release");
 var nugetKey = Argument<string>("nugetKey", null) ?? EnvironmentVariable("nuget_key");
 
-var pkgName = "Nullable.Extensions";
-var pkgDesc = "A set of extensions methods to help working with nullable types by implementing the Maybe monad on top of `T?`.";
-var pkgTags = "nullable reference types; extensions; nrt; nrts; maybe monad; maybe functor; map; filter; bind";
-var pkgAuthors = "Robert Hofmann";
-var docUrl = "https://github.com/bert2/Nullable.Extensions";
-var repoUrl = "https://github.com/bert2/Nullable.Extensions.git";
-
 var rootDir = Directory("..");
 var srcDir = rootDir + Directory("src");
-var libDir = srcDir + Directory(pkgName);
 var testDir = rootDir + Directory("tests");
-var pkgDir = libDir + Directory($"bin/{config}");
 
 var lastCommitMsg = EnvironmentVariable("APPVEYOR_REPO_COMMIT_MESSAGE") ?? GitLogTip(rootDir).MessageShort;
 var lastCommitSha = EnvironmentVariable("APPVEYOR_REPO_COMMIT") ?? GitLogTip(rootDir).Sha;
@@ -74,6 +65,15 @@ Task("Pack-Nullable.Extensions")
         var relNotes = FormatReleaseNotes(lastCommitMsg);
         Information($"Packing {semVer.NuGetVersion} ({relNotes})");
 
+        var pkgName = "Nullable.Extensions";
+        var pkgDesc = "A set of extensions methods to help working with nullable types by implementing the Maybe monad on top of `T?`.";
+        var pkgTags = "nullable reference types; extensions; nrt; nrts; maybe monad; maybe functor; map; filter; bind";
+        var pkgAuthors = "Robert Hofmann";
+        var docUrl = "https://github.com/bert2/Nullable.Extensions";
+        var repoUrl = "https://github.com/bert2/Nullable.Extensions.git";
+        var libDir = srcDir + Directory(pkgName);
+        var pkgDir = libDir + Directory($"bin/{config}");
+
         var msbuildSettings = new DotNetCoreMSBuildSettings()
         	.WithProperty("PackageId",                new[] { pkgName })
         	.WithProperty("PackageVersion",           new[] { semVer.NuGetVersion })
@@ -115,6 +115,10 @@ Task("Release-Nullable.Extensions")
 
         if (string.IsNullOrEmpty(nugetKey))
             nugetKey = Prompt("Enter nuget API key: ");
+
+        var pkgName = "Nullable.Extensions";
+        var libDir = srcDir + Directory(pkgName);
+        var pkgDir = libDir + Directory($"bin/{config}");
 
         DotNetCoreNuGetPush(
             pkgDir + File($"{pkgName}.{semVer.NuGetVersion}.nupkg"),
