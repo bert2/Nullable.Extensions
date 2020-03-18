@@ -8,14 +8,15 @@ If your interested in the reasoning behind this library, I recommend that you re
 
 ## Prerequisites
 
+- dotnet core 3.1, C# 8.0
 - enabled nullable reference types (via `<Nullable>enable</Nullable>` in your `.csproj` file or `#nullable enable` in your `.cs` file)
-- C# 8.0, dotnet core 3.1
 - import the required namespaces:
 
 ```csharp
 using Nullable.Extensions; // extension methods
 
 // optional:
+using static Nullable.Extensions.TryParseFunctions; // helper functions to try-parse built-in types as `T?`
 using static Nullable.Extensions.NullableClass; // factory method for NRTs
 using static Nullable.Extensions.NullableStruct; // factory method for NVTs
 ```
@@ -31,23 +32,23 @@ int num = GetUserInput() // returns `string?`
 ```
 
 ```csharp
-int? ParseInt(string s) => int.TryParse(s, out var i) ? (int?)i : null;
+using static Nullable.Extensions.TryParseFunctions;
 
 int num = Nullable("abc")
-    .Bind(ParseInt)
+    .Bind(TryParseInt)
     ?? throw new Exception("No input given or input was not numeric");
 ```
 
 ```csharp
 int num = GetUserInput() // returns `string?`
-    .Bind(ParseInt)
+    .Bind(TryParseInt)
     .Switch(notNull: n => n - 1, isNull: () => 0);
 ```
 
 ```csharp
 int num = "123"
     .AsNullable()
-    .Bind(ParseInt)
+    .Bind(TryParseInt)
     .Map(n => n - 1)
     ?? 0;
 ```
@@ -189,6 +190,5 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 ## TODO
 
 - add async overloads
-- add helpers like `V? IDicionary<K,V>.TryGet(K)`, `int? ParseInt(string)`, `bool? ParseBool(string)` etc.
 - add XML documentation
 - generate API reference with mddox
