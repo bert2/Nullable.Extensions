@@ -16,5 +16,17 @@
                 .TryGetValue(13)
                 .ShouldBe("lucky");
         }
+
+        public class Struct {
+            [Fact] public void ReturnsNullWhenKeyIsMissing() =>
+                new Dictionary<int, int>()
+                .TryGetValue(13)
+                .ShouldBe(null);
+
+            [Fact] public void ReturnsValueWhenKeyIsPresent() =>
+                new Dictionary<int, int> { [13] = 7 }
+                .TryGetValue(13)
+                .ShouldBe(7);
+        }
     }
 }
