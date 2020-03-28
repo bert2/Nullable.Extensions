@@ -41,8 +41,7 @@
         }
 
         public class Struct2Class {
-            [Fact]
-            public void ImplementsSelect() =>
+            [Fact] public void ImplementsSelect() =>
                 (from i in Nullable(3)
                  select i.ToString())
                 .ShouldBe("3");

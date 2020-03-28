@@ -1,7 +1,9 @@
 namespace UnitTests {
     using Xunit;
     using Nullable.Extensions;
+    using Nullable.Extensions.Async;
     using Shouldly;
+    using System.Threading.Tasks;
 
     public static class FilterTests {
         public class Class {
@@ -24,6 +26,18 @@ namespace UnitTests {
 
             [Fact] public void TurnsValueIntoNullWhenItDoesNotSatisfyPredicate()
                 => ((int?)2).Filter(x => x > 3).ShouldBeNull();
+        }
+
+        public static class TaskOfNullable {
+            public class Class {
+                [Fact] public async Task TurnsValueIntoNullWhenItDoesNotSatisfyPredicate()
+                    => await Task.FromResult<string?>("12").Filter(x => x.Length > 3).ShouldBeNull();
+            }
+
+            public class Struct {
+                [Fact] public async Task TurnsValueIntoNullWhenItDoesNotSatisfyPredicate()
+                    => await Task.FromResult<int?>(2).Filter(x => x > 3).ShouldBeNull();
+            }
         }
     }
 }

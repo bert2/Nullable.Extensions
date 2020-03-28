@@ -14,11 +14,12 @@ If your interested in the reasoning behind this library, I recommend that you re
 
 ```csharp
 using Nullable.Extensions; // extension methods
+using Nullable.Extensions.Async; // async variants of the extension methods (see notes below)
 
 // optional:
-using static Nullable.Extensions.TryParseFunctions; // helper functions to try-parse built-in types as `T?`
 using static Nullable.Extensions.NullableClass; // factory method for NRTs
 using static Nullable.Extensions.NullableStruct; // factory method for NVTs
+using static Nullable.Extensions.TryParseFunctions; // helper functions to try-parse built-in types as `T?`
 ```
 
 ## Usage examples
@@ -52,6 +53,8 @@ int num = "123"
     .Map(n => n - 1)
     ?? 0;
 ```
+
+## Working with `Task<T?>`
 
 ## Method reference
 
@@ -189,6 +192,6 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 
 ## TODO
 
-- add async overloads
+- add async overloads for `Select()` and `SelectMany()`?
 - add XML documentation
 - generate API reference with mddox

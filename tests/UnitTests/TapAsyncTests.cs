@@ -1,35 +1,34 @@
-namespace UnitTests {
-    using Xunit;
-    using Nullable.Extensions;
+﻿namespace UnitTests {
     using Nullable.Extensions.Async;
-    using Shouldly;
     using System.Threading.Tasks;
+    using Shouldly;
+    using Xunit;
 
-    public static class TapTests {
+    public static class TapAsyncTests {
         public class Class {
-            [Fact] public void DoesNotExecuteEffectWhenGivenNull() {
+            [Fact] public async Task DoesNotExecuteEffectWhenGivenNull() {
                 var hasValue = false;
-                _ = ((string?)null).Tap(_ => hasValue = true);
+                _ = await ((string?)null).TapAsync(_ => { hasValue = true; return Task.CompletedTask; });
                 hasValue.ShouldBeFalse();
             }
 
-            [Fact] public void ExecutesEffectWhenGivenValue() {
+            [Fact] public async Task ExecutesEffectWhenGivenValue() {
                 var hasValue = false;
-                _ = "hi".Tap(_ => hasValue = true);
+                _ = await "hi".TapAsync(_ => { hasValue = true; return Task.CompletedTask; });
                 hasValue.ShouldBeTrue();
             }
         }
 
         public class Struct {
-            [Fact] public void DoesNotExecuteEffectWhenGivenNull() {
+            [Fact] public async Task DoesNotExecuteEffectWhenGivenNull() {
                 var hasValue = false;
-                _ = ((int?)null).Tap(_ => hasValue = true);
+                _ = await((int?)null).TapAsync(_ => { hasValue = true; return Task.CompletedTask; });
                 hasValue.ShouldBeFalse();
             }
 
-            [Fact] public void ExecutesEffectWhenGivenValue() {
+            [Fact] public async Task ExecutesEffectWhenGivenValue() {
                 var hasValue = false;
-                _ = ((int?)3).Tap(_ => hasValue = true);
+                _ = await ((int?)3).TapAsync(_ => { hasValue = true; return Task.CompletedTask; });
                 hasValue.ShouldBeTrue();
             }
         }
@@ -38,13 +37,13 @@ namespace UnitTests {
             public class Class {
                 [Fact] public async Task DoesNotExecuteEffectWhenGivenNull() {
                     var hasValue = false;
-                    _ = await Task.FromResult<string?>(null).Tap((string _) => hasValue = true);
+                    _ = await Task.FromResult<string?>(null).TapAsync((string _) => { hasValue = true; return Task.CompletedTask; });
                     hasValue.ShouldBeFalse();
                 }
 
                 [Fact] public async Task ExecutesEffectWhenGivenValue() {
                     var hasValue = false;
-                    _ = await Task.FromResult<string?>("hi").Tap((string _) => hasValue = true);
+                    _ = await Task.FromResult<string?>("hi").TapAsync((string _) => { hasValue = true; return Task.CompletedTask; });
                     hasValue.ShouldBeTrue();
                 }
             }
@@ -52,13 +51,13 @@ namespace UnitTests {
             public class Struct {
                 [Fact] public async Task DoesNotExecuteEffectWhenGivenNull() {
                     var hasValue = false;
-                    _ = await Task.FromResult<int?>(null).Tap((int _) => hasValue = true);
+                    _ = await Task.FromResult<int?>(null).TapAsync((int _) => { hasValue = true; return Task.CompletedTask; });
                     hasValue.ShouldBeFalse();
                 }
 
                 [Fact] public async Task ExecutesEffectWhenGivenValue() {
                     var hasValue = false;
-                    _ = await Task.FromResult<int?>(3).Tap((int _) => hasValue = true);
+                    _ = await Task.FromResult<int?>(3).TapAsync((int _) => { hasValue = true; return Task.CompletedTask; });
                     hasValue.ShouldBeTrue();
                 }
             }
