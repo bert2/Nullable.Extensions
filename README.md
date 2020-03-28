@@ -56,6 +56,47 @@ int num = "123"
 
 ## Working with `Task<T?>`
 
+The namespace `Nullable.Extensions.Async` contains asynchronous variants of most of the extension methods. Importing them enables the fluent API on `Task<T?>`.
+
+```csharp
+using Nullable.Extensions;
+using Nullable.Extensions.Async;
+using static Nullable.Extensions.TryParseFunctions;
+
+public async Task<User?> LoadUser(int id) => // ...
+
+string userName = await requestParams // a `Dictionary<string, string>`
+    .TryGetValue("userId")            // from `Nullable.Extensions`
+    .Bind(TryParseInt)                // from `Nullable.Extensions`
+    .BindAsync(LoadUser)              // from `Nullable.Extensions.Async`
+    .Map(u => u.Name)                 // from `Nullable.Extensions.Async`
+    ?? "n/a";
+```
+
+Note that you only have to `await` the result once at the very top of the method chain.
+
+### Fixing "The call is ambiguous between..."
+
+When you are using extension methods from `Nullable.Extensions.Async`, you might occasionally encounter an error due to the compiler being unable to determine the correct overload:
+
+```csharp
+string? msg = await Task
+    .FromResult<string?>("world")
+    .Map(s => $"Hello, {s}!"); // ERROR CS0121
+```
+
+> CS0121: The call is ambiguous between the following methods or properties: 'Map<T1, T2>(T1?, Func<T1, T2>)' and 'Map<T1, T2>(Task<T1?>, Func<T1, T2>)'
+
+Fortunately, this is easy to fix by assisting the type inference with an explicit type declaration on the lambda parameter:
+
+```csharp
+string? msg = await Task
+    .FromResult<string?>("world")
+    .Map((string s) => $"Hello, {s}!"); // no error
+```
+
+The fix is only needed under [certain circumstances](https://stackoverflow.com/questions/60754529/how-to-explain-this-call-is-ambiguous-error). Most of the time this fix should not be needed and you can let the compiler infer the type.
+
 ## Method reference
 
 ### `IEnumerable<T> T?.AsEnumerable<T>()`
