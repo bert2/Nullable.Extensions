@@ -243,5 +243,4 @@ string msg = from s in Nullable("hi!")
 
 ## TODO
 
-- add XML documentation
 - generate API reference with mddox
