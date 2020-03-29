@@ -13,6 +13,12 @@
                  select s)
                 .ShouldBe("hi");
 
+            [Fact] public void ImplementsWhere() =>
+                (from s in Nullable("hi")
+                 where s.Length > 0
+                 select s)
+                .ShouldBe("hi");
+
             [Fact] public void ImplementsSelectMany() =>
                 (from s1 in Nullable("hello")
                  from s2 in Nullable("world")
@@ -25,6 +31,12 @@
                 (from i in Nullable(3)
                  select i)
                 .ShouldBe(3);
+
+            [Fact] public void ImplementsWhere() =>
+                (from i in Nullable(3)
+                 where i > 10
+                 select i)
+                .ShouldBeNull();
 
             [Fact] public void ImplementsSelectMany() =>
                 (from i1 in Nullable(2)

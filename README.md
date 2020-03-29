@@ -231,8 +231,17 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 // `i_was_null` is still `true`
 ```
 
+### `T? T?.Where<T>(Predicate<T> predicate)`
+
+Alias for `Filter()`. Also enables LINQ's query syntax for `T?`.
+
+```csharp
+string msg = from s in Nullable("hi!")
+             where s.Length > 0
+             select s;
+```
+
 ## TODO
 
-- add async overloads for `Select()` and `SelectMany()`?
 - add XML documentation
 - generate API reference with mddox
