@@ -1,4 +1,4 @@
-﻿namespace Nullable.Extensions {
+﻿namespace Nullable.Extensions.Linq {
     using System;
 
     /// <summary>Defines the `Select()` extension for `T?`.</summary>

@@ -1,6 +1,6 @@
 ﻿namespace UnitTests {
     using Xunit;
-    using Nullable.Extensions;
+    using Nullable.Extensions.Linq;
     using Shouldly;
 
     using static Nullable.Extensions.NullableClass;

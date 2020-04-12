@@ -1,6 +1,6 @@
 namespace UnitTests {
     using Xunit;
-    using Nullable.Extensions;
+    using Nullable.Extensions.Linq;
     using Shouldly;
 
     public static class SelectMany1Tests {
