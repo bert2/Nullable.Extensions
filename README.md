@@ -14,13 +14,16 @@ If your interested in the reasoning behind this library, I recommend that you re
 
 ```csharp
 using Nullable.Extensions; // extension methods
-using Nullable.Extensions.Async; // async variants of the extension methods (see notes below)
+using Nullable.Extensions.Async; // async variants of the extension methods
+using Nullable.Extensions.Linq; // enables LINQ's query syntax on `T?`
 
 // optional:
 using static Nullable.Extensions.NullableClass; // factory method for NRTs
 using static Nullable.Extensions.NullableStruct; // factory method for NVTs
 using static Nullable.Extensions.TryParseFunctions; // helper functions to try-parse built-in types as `T?`
 ```
+
+You might encounter conflicts when you are using the extension methods from the namespaces `Async` or `Linq`. See [the sections below](#fixing-the-call-is-ambiguous-between) on how to resolve those.
 
 ## Usage examples
 
@@ -75,7 +78,7 @@ string userName = await requestParams // a `Dictionary<string, string>`
 
 Note that you only have to `await` the result once at the very top of the method chain.
 
-### Fixing "The call is ambiguous between..."
+## Fixing "The call is ambiguous between..."
 
 When you are using extension methods from `Nullable.Extensions.Async`, you might occasionally encounter an error due to the compiler being unable to determine the correct overload:
 
@@ -96,6 +99,24 @@ string? msg = await Task
 ```
 
 The fix is only needed under [certain circumstances](https://stackoverflow.com/questions/60754529/how-to-explain-this-call-is-ambiguous-error). Most of the time this fix should not be needed and you can let the compiler infer the type.
+
+## Fixing conflicts with LINQ
+
+When you are using extension methods from `Nullable.Extensions.Linq`, you might occasionally encounter situations where the compiler picks the wrong overload for `Select()`, `Where()`, or `SelectMany()`:
+
+```csharp
+var xs = new[] { 1, 2, 3 }.Select(x => x.ToString()); // WARNING CS8634
+```
+
+In the above example it was probably intended to use `System.Linq.Enumerable.Select()`, but the compiler choose the `Select()` extension on `T?` instead. A compiler warning might indicate this issue:
+
+> CS8634: The type 'string?' cannot be used as type parameter 'T2' in the generic type or method 'SelectExt1.Select<T1, T2>(T1?, Func<T1, T2>)'. Nullability of type argument 'string?' doesn't match 'class' constraint.
+
+Again, this is also easy to fix by assisting the type inference with an explicit type declaration on the lambda parameter:
+
+```csharp
+var xs = new[] { 1, 2, 3 }.Select((int x) => x.ToString()); // no warning and correct `Select()`
+```
 
 ## Method reference
 
@@ -183,6 +204,10 @@ int? i = Nullable<int>();
 Alias for `Map()`. Also enables LINQ's query syntax for `T?`.
 
 ```csharp
+using Nullable.Extensions.Linq;
+
+// ...
+
 int? i = from s in Nullable("3")
          select int.Parse(s);
 ```
@@ -196,6 +221,10 @@ Alias for `Bind()`.
 Enables LINQ's query syntax for `T?`.
 
 ```csharp
+using Nullable.Extensions.Linq;
+
+// ...
+
 int? ParseInt(string s) => int.TryParse(s, out var i) ? (int?)i : null;
 
 int? sum = from s in Nullable("2")
@@ -236,6 +265,10 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 Alias for `Filter()`. Also enables LINQ's query syntax for `T?`.
 
 ```csharp
+using Nullable.Extensions.Linq;
+
+// ...
+
 string msg = from s in Nullable("hi!")
              where s.Length > 0
              select s;
