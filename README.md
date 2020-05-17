@@ -120,15 +120,6 @@ var xs = new[] { 1, 2, 3 }.Select((int x) => x.ToString()); // no warning and co
 
 ## Method reference
 
-### `IEnumerable<T> T?.AsEnumerable<T>()`
-
-Converts `T?` into an `IEnumerable<T>` with a single item in case the `T?` has a value. Otherwise the `IEnumerable<T>` will be empty.
-
-```csharp
-IEnumerable<int> singleton = Nullable(13).AsEnumerable();
-IEnumerable<string> empty = Nullable<string>().AsEnumerable();
-```
-
 ### `T? T.AsNullable<T>()`
 
 Converts a `T` into a `T?`.
@@ -258,6 +249,25 @@ int? i = Nullable<int>().Tap(i => i_was_null = false);
 
 // `s_was_null` is now `false`
 // `i_was_null` is still `true`
+```
+
+### `IEnumerable<T> T?.ToEnumerable<T>()`
+
+Converts `T?` into an `IEnumerable<T>` with a single item in case the `T?` has a value. Otherwise the `IEnumerable<T>` will be empty.
+
+```csharp
+IEnumerable<int> singleton = Nullable(13).ToEnumerable();
+IEnumerable<string> empty = Nullable<string>().ToEnumerable();
+```
+
+### `T? IEnumerable<T>.ToNullable<T>()`
+
+Converts a singleton `IEnumerable<T>` into a `T?` that is `null` case the `IEnumerable<T>` is empty. Otherwise the result will be the `IEnumerable<T>`'s only item. Throws when the `IEnumerable<T>` contains more than one item.
+
+```csharp
+int? nullValue = Enumerable.Empty<int>().ToNullable();
+string? nonNullValue = new[] { "hi" }.ToNullable();
+new[] { 1, 2, 3 }.ToNullable(); // throws InvalidOperationException
 ```
 
 ### `T? T?.Where<T>(Predicate<T> predicate)`

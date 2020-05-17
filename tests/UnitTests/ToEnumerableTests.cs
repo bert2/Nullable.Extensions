@@ -5,38 +5,38 @@ namespace UnitTests {
     using Shouldly;
     using System.Threading.Tasks;
 
-    public static class AsEnumerableTests {
+    public static class ToEnumerableTests {
         public class Class {
             [Fact] public void ReturnsEmptyEnumerableWhenGivenNull()
-                => ((string?)null).AsEnumerable().ShouldBeEmpty();
+                => ((string?)null).ToEnumerable().ShouldBeEmpty();
 
             [Fact] public void ReturnsSingletonEnumerableWhenGivenValue()
-                => "hi".AsEnumerable().ShouldHaveSingleItem().ShouldBe("hi");
+                => "hi".ToEnumerable().ShouldHaveSingleItem().ShouldBe("hi");
         }
 
         public class Struct {
             [Fact] public void ReturnsEmptyEnumerableWhenGivenNull()
-                => ((int?)null).AsEnumerable().ShouldBeEmpty();
+                => ((int?)null).ToEnumerable().ShouldBeEmpty();
 
             [Fact] public void ReturnsSingletonEnumerableWhenGivenValue()
-                => ((int?)7).AsEnumerable().ShouldHaveSingleItem().ShouldBe(7);
+                => ((int?)7).ToEnumerable().ShouldHaveSingleItem().ShouldBe(7);
         }
 
         public static class TaskOfNullable {
             public class Class {
                 [Fact] public async Task ReturnsEmptyEnumerableWhenGivenNull()
-                    => await Task.FromResult<string?>(null).AsEnumerable().ShouldBeEmpty();
+                    => await Task.FromResult<string?>(null).ToEnumerable().ShouldBeEmpty();
 
                 [Fact] public async Task ReturnsSingletonEnumerableWhenGivenValue()
-                    => await Task.FromResult<string?>("hi").AsEnumerable().ShouldHaveSingleItem().ShouldBe("hi");
+                    => await Task.FromResult<string?>("hi").ToEnumerable().ShouldHaveSingleItem().ShouldBe("hi");
             }
 
             public class Struct {
                 [Fact] public async Task ReturnsEmptyEnumerableWhenGivenNull()
-                    => await Task.FromResult<int?>(null).AsEnumerable().ShouldBeEmpty();
+                    => await Task.FromResult<int?>(null).ToEnumerable().ShouldBeEmpty();
 
                 [Fact] public async Task ReturnsSingletonEnumerableWhenGivenValue()
-                    => await Task.FromResult<int?>(7).AsEnumerable().ShouldHaveSingleItem().ShouldBe(7);
+                    => await Task.FromResult<int?>(7).ToEnumerable().ShouldHaveSingleItem().ShouldBe(7);
             }
         }
     }

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nullable.Extensions", "src\Nullable.Extensions\Nullable.Extensions.csproj", "{6E09F52C-E104-4339-B226-F4A3F29E2386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nullable.Extensions", "src\Nullable.Extensions\Nullable.Extensions.csproj", "{6E09F52C-E104-4339-B226-F4A3F29E2386}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{4BFF2D9B-DD6D-4AE1-8EFB-129677480A26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{4BFF2D9B-DD6D-4AE1-8EFB-129677480A26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96302F3C-3701-4F1D-A7B2-A477E80BE36F}"
 	ProjectSection(SolutionItems) = preProject
