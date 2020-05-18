@@ -6,6 +6,19 @@
 
 If your interested in the reasoning behind this library, I recommend that you read the chapter ["Make null explicit"](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7#make-null-explicit) from my guide [Giving Sisyphus a Hand: How to Improve OOP with Functional Principles](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7).
 
+## Table of contents
+
+- [Prerequisites](#prerequisites)
+- [Usage examples](#usage-examples)
+- [Working with `Task<T?>`](#working-with-taskt)
+- [Known issues](#known-issues)
+  * [Fixing "The call is ambiguous between..."](#fixing-the-call-is-ambiguous-between)
+  * [Fixing conflicts with LINQ](#fixing-conflicts-with-linq)
+- [Method reference](#method-reference)
+  * [Core functionality](#core-functionality)
+  * [Support](#support)
+  * [Utility functions](#utility-functions)
+
 ## Prerequisites
 
 - your project's `TargetFramework` must be `netcoreapp3.1` or `netstandard2.1`
@@ -96,7 +109,9 @@ string userName = await requestParams // a `Dictionary<string, string>`
 
 Note that you only have to `await` the result once at the very top of the method chain.
 
-## Fixing "The call is ambiguous between..."
+## Known issues
+
+### Fixing "The call is ambiguous between..."
 
 When you are using extension methods from `Nullable.Extensions.Async`, you might occasionally encounter an error due to the compiler being unable to determine the correct overload:
 
@@ -118,7 +133,7 @@ string? msg = await Task
 
 The fix is only needed under [certain circumstances](https://stackoverflow.com/questions/60754529/how-to-explain-this-call-is-ambiguous-error). Most of the time this fix should not be needed and you can let the compiler infer the type.
 
-## Fixing conflicts with LINQ
+### Fixing conflicts with LINQ
 
 When you are using extension methods from `Nullable.Extensions.Linq`, you might occasionally encounter situations where the compiler picks the wrong overload for `Select()`, `Where()`, or `SelectMany()`:
 
@@ -342,7 +357,7 @@ using static Nullable.Extensions.Util.TryParseFunctions;
 // ...
 
 int? one = TryParseInt("1");
-ulong? biiig = TryParseULong("9999999999999999999");
+ulong? manyNines = TryParseULong("9999999999999999999");
 TimeSpan? time = TryParseTimeSpan("13:12");
 DateTime? nullValue = TryParseDateTime("yesterday");
 ```
