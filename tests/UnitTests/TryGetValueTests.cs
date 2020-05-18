@@ -1,6 +1,6 @@
 ﻿namespace UnitTests {
     using System.Collections.Generic;
-    using Nullable.Extensions;
+    using Nullable.Extensions.Util;
     using Shouldly;
     using Xunit;
 

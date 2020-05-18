@@ -1,4 +1,4 @@
-﻿namespace Nullable.Extensions {
+﻿namespace Nullable.Extensions.Util {
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;

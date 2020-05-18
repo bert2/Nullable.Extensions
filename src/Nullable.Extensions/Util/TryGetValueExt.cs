@@ -1,4 +1,4 @@
-﻿namespace Nullable.Extensions {
+﻿namespace Nullable.Extensions.Util {
     using System.Collections.Generic;
 
     /// <summary>Defines a helper method to safely retrieve values by key from an `IDictionary`.</summary>
