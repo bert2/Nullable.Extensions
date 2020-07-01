@@ -85,6 +85,17 @@ int num = GetUserInput()
     ?? 0;
 ```
 
+With `Switch()` and the `??` operator `null`-value handling can only be done at the end of a chain. Using `Else()`, however, we can also handle `null`s in the middle of a chain and replace them with alternative values:
+
+```csharp
+int num = GetUserInput(prompt: "Enter a number:")
+    .Bind(TryParseInt)
+    .Else(() => GetUserInput(prompt: "A number PLEASE!").Bind(TryParseInt)) // One more chance...
+    .Else(() => TryGetRandomNumber()) // If you don't care then I don't care.
+    .Map(n => n - 1)
+    ?? 0;
+```
+
 ## Working with `Task<T?>`
 
 The namespace `Nullable.Extensions.Async` contains asynchronous variants of most of the extension methods. Importing them enables the fluent API on `Task<T?>`.
@@ -141,7 +152,7 @@ When you are using extension methods from `Nullable.Extensions.Linq`, you might 
 var xs = new[] { 1, 2, 3 }.Select(x => x.ToString()); // WARNING CS8634
 ```
 
-In the above example it was probably intended to use `System.Linq.Enumerable.Select()`, but the compiler choose the `Select()` extension on `T?` instead. A compiler warning might indicate this issue:
+In the above example it was probably intended to use `System.Linq.Enumerable.Select()`, but the compiler chose the `Select()` extension on `T?` instead. A compiler warning might indicate this issue:
 
 > CS8634: The type 'string?' cannot be used as type parameter 'T2' in the generic type or method 'SelectExt1.Select<T1, T2>(T1?, Func<T1, T2>)'. Nullability of type argument 'string?' doesn't match 'class' constraint.
 
@@ -198,6 +209,19 @@ string? str2 = str1.AsNullable();
 ```
 
 Implemented for completeness. Most of the time the implicit conversions from `T` to `T?` will be sufficient.
+
+#### `T? T?.Else<T>(Func<T?> onNull)`
+
+Evaluates whether the `T?` has a value. If so, it is simply forwarded untouched. When it's `null` the `onNull` function will be evaluated to calculate a replacement value. The result of `onNull()` might also be `null`.
+
+```csharp
+string? yourMessage = null;
+string? greeting = yourMessage.Else(() => "Hello world!");
+
+int? one = Nullable(1).Else(() => 13);
+```
+
+`Else()` is useful when implementing simple error handling. Its advantage over `Switch()` and `??` being that it can be used in the middle a method chain rather than only at the end of one.
 
 #### `T? Nullable<T>(T x)`
 
