@@ -6,7 +6,9 @@
     public static class ShouldlyAsyncExt {
         public static async Task ShouldBe<T>(this Task<T> x, T expected) => (await x).ShouldBe(expected);
 
-        public static async Task ShouldBeNull<T>(this Task<T> x) => (await x).ShouldBeNull();
+        public static async Task ShouldBeNull<T>(this Task<T?> x) where T : class => (await x).ShouldBeNull();
+
+        public static async Task ShouldBeNull<T>(this Task<T?> x) where T : struct => (await x).ShouldBeNull();
 
         public static async Task ShouldBeTrue(this Task<bool> x) => (await x).ShouldBeTrue();
 
