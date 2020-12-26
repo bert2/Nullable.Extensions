@@ -4,7 +4,8 @@
 
 `Nullable.Extensions` is a set of C# extension methods to help working with nullable types by implementing the [Maybe monad](https://www.dotnetcurry.com/patterns-practices/1510/maybe-monad-csharp) on top of `T?`. This includes nullable value types (NVTs) and nullable reference types (NRTs).
 
-If your interested in the reasoning behind this library, I recommend that you read the chapter ["Make null explicit"](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7#make-null-explicit) from my guide [Giving Sisyphus a Hand: How to Improve OOP with Functional Principles](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7).
+> **Note**\
+> I consider this library experimental by now. Due to C#'s somewhat inconsistent implementation of NRTs, using a [dedicated maybe-like type](https://gist.github.com/bert2/eebc3dbb6c38599a041daaaec16467f8) will result in more user-friendly and safer code. [(Read more)](https://gist.github.com/bert2/2413ea125992fe59d66d24238cf9eba7#option-vs-nullable-reference-types)
 
 ## Table of contents
 
@@ -385,7 +386,3 @@ ulong? manyNines = TryParseULong("9999999999999999999");
 TimeSpan? time = TryParseTimeSpan("13:12");
 DateTime? nullValue = TryParseDateTime("yesterday");
 ```
-
-## TODO
-
-- generate API reference with mddox
