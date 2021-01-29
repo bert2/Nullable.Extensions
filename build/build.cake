@@ -1,4 +1,4 @@
-#tool nuget:?GitVersion.CommandLine&version=5.6.3
+#tool nuget:?package=GitVersion.CommandLine&version=5.6.3
 #tool Codecov
 #addin Cake.Codecov
 #addin Cake.Git
